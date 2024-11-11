@@ -1,36 +1,36 @@
 // Initialize an empty array to store customer data
-let customers = [];
+// let customers = [];
 
 // Handle adding a customer
-document.getElementById('addCustomerForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
+// document.getElementById('addCustomerForm').addEventListener('submit', function(event) {
+//     event.preventDefault(); // Prevent default form submission
 
-    // Get form values
-    const guestName = document.getElementById('guestName').value;
-    const roomNumber = document.getElementById('roomNumber').value;
-    const mobileNumber = document.getElementById('mobileNumber').value;
-    const checkInDateTime = document.getElementById('checkInDateTime').value;
-    const totalAmount = document.getElementById('totalAmount').value;
-    const amountPaid = document.getElementById('amountPaid').value;
+//     // Get form values
+//     const guestName = document.getElementById('guestName').value;
+//     const roomNumber = document.getElementById('roomNumber').value;
+//     const mobileNumber = document.getElementById('mobileNumber').value;
+//     const checkInDateTime = document.getElementById('checkInDateTime').value;
+//     const totalAmount = document.getElementById('totalAmount').value;
+//     const amountPaid = document.getElementById('amountPaid').value;
 
-    // Create a customer object and push it into the customers array
-    const newCustomer = {
-        guestName,
-        roomNumber,
-        mobileNumber,
-        checkInDateTime,
-        totalAmount: parseFloat(totalAmount),
-        amountPaid: parseFloat(amountPaid)
-    };
+//     // Create a customer object and push it into the customers array
+//     const newCustomer = {
+//         guestName,
+//         roomNumber,
+//         mobileNumber,
+//         checkInDateTime,
+//         totalAmount: parseFloat(totalAmount),
+//         amountPaid: parseFloat(amountPaid)
+//     };
 
-    customers.push(newCustomer);
+//     customers.push(newCustomer);
 
-    // Reset the form
-    document.getElementById('addCustomerForm').reset();
+//     // Reset the form
+//     document.getElementById('addCustomerForm').reset();
 
-    // Optionally, alert that the customer was added
-    alert("Customer added successfully!");
-});
+//     // Optionally, alert that the customer was added
+//     alert("Customer added successfully!");
+// });
 
 // Function to search for a customer by room number or guest name
 function searchCustomer() {

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const fetchAvailableRooms = async () => {
         try {
             // Fetch available rooms from the backend (replace with your API endpoint)
-            const response = await fetch('http://localhost:5000/api/rooms?status=available');
+            const response = await fetch('http://localhost:3000/api/rooms?status=available');
             
             if (!response.ok) {
                 throw new Error('Error fetching rooms');
@@ -46,5 +46,5 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchAvailableRooms();
 
     // Optionally, refresh the room list periodically (e.g., every 5 seconds)
-    setInterval(fetchAvailableRooms, 5000);  // Refresh every 5 seconds
+    setInterval(fetchAvailableRooms, 3000);  // Refresh every 5 seconds
 });

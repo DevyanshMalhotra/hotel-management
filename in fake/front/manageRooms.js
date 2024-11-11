@@ -20,11 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Disable the submit button to prevent resubmission
-            const submitButton = document.querySelector('#manage-rooms form button[type="submit"]');
+            const submitButton = document.querySelector('#add-room-form button[type="submit"]');
             submitButton.disabled = true;
             
+            console.log('Sending room data:', roomData);  // Debugging step
+
             // Send the room data to the backend (replace with your API endpoint)
-            const response = await fetch('http://localhost:5000/api/rooms', {
+            const response = await fetch('http://localhost:3000/api/rooms', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,11 +34,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify(roomData),
             });
 
+            console.log('Response Status:', response.status);  // Debugging response status
+
             if (response.ok) {
-                alert("Room added successfully!");                                                  
-                document.querySelector('#manage-rooms form').reset(); // Reset the form after successful submission
+                alert("Room added successfully!");
+                document.querySelector('#add-room-form').reset(); // Reset the form after successful submission
             } else {
-                const errorData = await response.json();
+                const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
                 alert(`Error adding room: ${errorData.message || 'Unknown error'}`);
             }
         } catch (error) {
@@ -44,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error adding room');
         } finally {
             // Re-enable the submit button after the request completes
-            document.querySelector('#manage-rooms form button[type="submit"]').disabled = false;
+            document.querySelector('#add-room-form button[type="submit"]').disabled = false;
         }
     };
 
@@ -61,19 +65,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Disable the submit button to prevent resubmission
-            const submitButton = document.querySelectorAll('#manage-rooms form button[type="submit"]')[1];
+            const submitButton = document.querySelector('#delete-room-form button[type="submit"]');
             submitButton.disabled = true;
 
             // Send the request to delete the room (replace with your API endpoint)
-            const response = await fetch(`http://localhost:5000/api/rooms/${roomNumberToDelete}`, {
+            const response = await fetch(`http://localhost:3000/api/rooms/${roomNumberToDelete}`, {
                 method: 'DELETE',
             });
 
             if (response.ok) {
                 alert("Room deleted successfully!");
-                document.querySelector('#manage-rooms form').reset(); // Reset the form after successful deletion
+                document.querySelector('#delete-room-form').reset(); // Reset the form after successful deletion
             } else {
-                const errorData = await response.json();
+                const errorData = await response.json().catch(() => ({ message: 'Room not found' }));
                 alert(`Error deleting room: ${errorData.message || 'Room not found'}`);
             }
         } catch (error) {
@@ -81,14 +85,13 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error deleting room');
         } finally {
             // Re-enable the submit button after the request completes
-            document.querySelectorAll('#manage-rooms form button[type="submit"]')[1].disabled = false;
+            document.querySelector('#delete-room-form button[type="submit"]').disabled = false;
         }
     };
 
     // Add event listener for saving a room
-    document.querySelector('#manage-rooms form').addEventListener('submit', saveRoom);
+    document.querySelector('#add-room-form').addEventListener('submit', saveRoom);
 
     // Add event listener for deleting a room
-    const deleteForm = document.querySelectorAll('#manage-rooms form')[1];
-    deleteForm.addEventListener('submit', deleteRoom);
+    document.querySelector('#delete-room-form').addEventListener('submit', deleteRoom);
 });

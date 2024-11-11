@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Event listener for getting the room rent based on room number
     getRoomRentBtn.addEventListener('click', async () => {
-        const roomNumber = roomNumberInput.value;
+        const roomNumber = roomNumberInput.value.trim(); // Make sure to trim the room number input
 
         if (!roomNumber) {
             alert('Please enter a room number.');
@@ -14,19 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Fetch room rent from the server (replace with your actual API endpoint)
-            const response = await fetch(`/api/getRoomRent/${roomNumber}`);
+            // Fetch room rent from the server
+            const response = await fetch(`http://localhost:3000/api/getRoomRent/${roomNumber}`);
             const data = await response.json();
-
+            
+            // Check if the room rent is found
             if (response.ok && data && data.rent) {
                 // Set the rent in the payment field if room is found
                 totalPaymentAmountInput.value = data.rent;
+                alert(`Room rent for room number ${roomNumber} is ₹${data.rent}`); // Display rent in an alert
             } else {
-                alert('Room not found. Please enter a valid room number.');
+                alert('Room not found. Please enter a valid room number.'); // Show alert if room not found
             }
         } catch (error) {
             console.error('Error fetching room rent:', error);
-            alert('There was an error fetching the room rent. Please try again.');
+            alert('There was an error fetching the room rent. Please try again.'); // Show alert for errors
         }
     });
 
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const guestName = document.getElementById('guestName').value;
-        const roomNumber = roomNumberInput.value;
+        const roomNumber = roomNumberInput.value.trim();
         const checkInDate = document.getElementById('checkInDate').value;
         const checkOutDate = document.getElementById('checkOutDate').value;
         const totalPayment = totalPaymentAmountInput.value;
@@ -49,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Send check-in data to the backend (replace '/check-in' with your actual endpoint)
-            const response = await fetch('/check-in', {
+            // Send check-in data to the backend
+            const response = await fetch('http://localhost:3000/check-in', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
